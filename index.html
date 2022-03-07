@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./vue.js"></script>
+  <title>Vue.js</title>
+</head>
+<body>
+  <div id="button-builder" class="form-container">
+    <form class="form" action="./index.html">
+      <label for="content">Content:</label>
+      <input type="text" v-model="button.content" name="content" id="content" cols="10" rows="1"></input>
+      <label for="width">Width: <span>{{width + 'px'}}</span></label>
+      
+      <input type="range" name="width" id="width" min="50" max="1000" v-model="width">
+      <label for="width">Height: <span>{{height + 'px'}}</span></label>
+      <input type="range" name="height" id="height" min="25" max="500" v-model="height">
+      <label for="font-size">Font-Size: </label>
+      <input type="number" name="font-size" id="font-size" v-model="fontSize">
+      <label for="font=family">Font-Family:</label>
+      <select name="font-family" id="font-family" v-model="button.fontFamily">
+        <option value="arial">Arial</option>
+        <option value="monospace">Monospace</option>
+        <option value="Fira Code">Fira Code</option>
+      </select>
+      <span>Text-Align:</span>
+      <div class="radio-flex">
+        <label for="text-align">Left</label>
+        <input type="radio" name="text-align" id="text-align" value="left" v-model="button.textAlign">
+        <label for="text-align">Center</label>
+        <input type="radio" name="text-align" id="text-align" value="center" v-model="button.textAlign">
+        <label for="text-align">Right</label>
+        <input type="radio" name="text-align" id="text-align" value="right" v-model="button.textAlign">
+      </div>
+      <label for="background">Background: <span>{{button.background}}</span></label>
+      <input type="color" name="background" id="background" v-model="button.background">
+      <label for="color">Color: <span>{{button.color}}</span></label>    
+      <input type="color" name="color" id="color" v-model="button.color">
+      <label for="borderRadius">Border-Radius: </label>
+      <input type="number" name="borderRadius" id="borderRadius" v-model="borderRadius">
+    </form>
+    <button :style="[button, { width: width + 'px', height: height + 'px', fontSize: fontSize + 'px', borderRadius: borderRadius + 'px' }]">{{button.content}}</button>
+  </div>
+
+  <script>
+    
+    const vm = new Vue({
+      el:'#button-builder',
+      data: {
+          width: '200',
+          height: '100',
+          fontSize:'20',          
+          borderRadius: '4',
+          button: {
+            content: '',
+            fontFamily: '',
+            textAlign: '',
+            background: '',
+            color: '',
+          },
+      }
+    });
+
+  </script> 
+  
+  <style>
+.form {
+  grid-column: 0/1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-container {
+  display: grid;
+  grid-template-columns: 250px auto;
+}
+
+button {
+  margin-left: 20px;
+  align-self: center;
+}
+
+.radio-flex {
+  display: flex;
+  gap: 5px;
+}
+  </style>
+</body>
+</html>
